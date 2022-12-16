@@ -18,6 +18,6 @@
   },
   "dependencies": {
     "cookie-universal-nuxt": "^2.2.2",
-    "daisyui": "^2.43.2"
+    "daisyui": "^2.45.0"
   }
 }
