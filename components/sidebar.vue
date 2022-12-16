@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-neutral flex flex-col justify-between items-center w-20 py-5">
+    <div class="hidden bg-neutral flex-col justify-between items-center w-20 py-5 lg:flex md:flex">
         <div class="avatar w-1/2">
             <div class="w-24 rounded-full">
                 <img src="https://placeimg.com/192/192/people" />
@@ -8,15 +8,15 @@
         <div class="flex flex-col gap-3">
             <div class="tooltip tooltip-right tooltip-secondary" data-tip="Home">
                 <NuxtLink to="/dashboard">
-                    <HomeIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+                    <HomeIcon :class="route.name === 'dashboard' ? 'bg-secondary' : 'bg-primary'" class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
                 </NuxtLink>
             </div>
             <div class="tooltip tooltip-right tooltip-secondary" data-tip="Add marker">
-                <SquaresPlusIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+                <SquaresPlusIcon :class="route.name === 'dashboard-new' ? 'bg-secondary' : 'bg-primary'" class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
             </div>
             <div class="tooltip tooltip-right tooltip-secondary" data-tip="Friends">
                 <NuxtLink to="/dashboard/friends">
-                    <UsersIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+                    <UsersIcon :class="route.name === 'dashboard-friends' ? 'bg-secondary' : 'bg-primary'" class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
                 </NuxtLink>
             </div>
         </div>
@@ -35,13 +35,17 @@
             </div>
         </div>
     </div>
+    
 </template>
 
-<script>
+<script setup>
 import { HomeIcon, SquaresPlusIcon, UsersIcon } from '@heroicons/vue/24/solid'
 
-export default {
-    components: { HomeIcon, SquaresPlusIcon, UsersIcon }
-}
+const route = useRoute()
+const routes = [
+    "dashboard",
+    "dashboard-friends",
+    "dashboard-new"
+]
 
 </script>
