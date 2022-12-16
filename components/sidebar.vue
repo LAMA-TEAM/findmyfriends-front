@@ -6,8 +6,19 @@
             </div>
         </div>
         <div class="flex flex-col gap-3">
-            <HomeIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
-            <SquaresPlusIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+            <div class="tooltip tooltip-right tooltip-secondary" data-tip="Home">
+                <NuxtLink to="/dashboard">
+                    <HomeIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+                </NuxtLink>
+            </div>
+            <div class="tooltip tooltip-right tooltip-secondary" data-tip="Add marker">
+                <SquaresPlusIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+            </div>
+            <div class="tooltip tooltip-right tooltip-secondary" data-tip="Friends">
+                <NuxtLink to="/dashboard/friends">
+                    <UsersIcon class="h-10 w-10 text-white bg-primary rounded-md p-2 hover:bg-secondary hover:cursor-pointer" />
+                </NuxtLink>
+            </div>
         </div>
         <div>
             <div class="dropdown dropdown-top">
@@ -27,10 +38,10 @@
 </template>
 
 <script>
-import { HomeIcon, SquaresPlusIcon } from '@heroicons/vue/24/solid'
+import { HomeIcon, SquaresPlusIcon, UsersIcon } from '@heroicons/vue/24/solid'
 
 export default {
-    components: { HomeIcon, SquaresPlusIcon }
+    components: { HomeIcon, SquaresPlusIcon, UsersIcon }
 }
 
 </script>
