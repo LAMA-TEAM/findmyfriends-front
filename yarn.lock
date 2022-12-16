@@ -284,6 +284,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/linux-loong64/-/linux-loong64-0.15.18.tgz#128b76ecb9be48b60cf5cfc1c63a4f00691a3239"
   integrity sha512-L4jVKS82XVhw2nvzLg/19ClLWg0y27ulRwuP7lcyL6AbUWB5aPglXY3M21mauDQMDfRLs8cQmeT03r/+X3cZYQ==
 
+"@heroicons/vue@^2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@heroicons/vue/-/vue-2.0.13.tgz#974c52abf8dab70e7d2a3a93d7fdadff4a0e9ec2"
+  integrity sha512-vVCVF02+rNKXEmanVNnmktJlxCbOn0qVFP1gfZPn4bcBIwPX3h9AVHGCkwly+IWDEME8w5oooG0KRd2hhSe/HQ==
+
 "@ioredis/commands@^1.1.1":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@ioredis/commands/-/commands-1.2.0.tgz"
@@ -684,6 +689,20 @@
   resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-3.2.0.tgz"
   integrity sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==
 
+"@vue-hero-icons/outline@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@vue-hero-icons/outline/-/outline-1.7.2.tgz#ec723ee45e142d2249948c58be65f5d35e3c4ed3"
+  integrity sha512-mgMpncarjZHXY1K2tyjbYHf53yQG9amroDR9t2iH/umpsN8+f8RNcTy1m131EZ8WBCm8MpF97XpXPV129rvtVg==
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.3"
+
+"@vue-hero-icons/solid@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@vue-hero-icons/solid/-/solid-1.7.2.tgz#40ce7dca69e216e84af5e3ed7635432b360ac024"
+  integrity sha512-ngjgdYgdjXp8BuHmx998Kl2tAmbatJXdYO8Cut+DXo9OVGZMuVmIzIjnar4H5Wf9wFVdCuag+HazLEu9F7T3cw==
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.3"
+
 "@vue/babel-helper-vue-transform-on@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@vue/babel-helper-vue-transform-on/-/babel-helper-vue-transform-on-1.0.2.tgz"
@@ -989,6 +1008,11 @@ autoprefixer@^10.2.5, autoprefixer@^10.4.13:
     normalize-range "^0.1.2"
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
+
+babel-helper-vue-jsx-merge-props@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
+  integrity sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==
 
 balanced-match@^1.0.0:
   version "1.0.2"
