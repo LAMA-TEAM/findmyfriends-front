@@ -1,9 +1,46 @@
+<script setup>
+import { useRouter, useRoute } from "vue-router";
+import { login } from "~/lib/api";
+
+const router = useRouter();
+const route = useRoute();
+
+const success = ref(route.query.success);
+
+const email = ref("");
+const password = ref("");
+
+const error = ref("");
+
+onMounted(() => {
+  router.replace({ query: {}})
+
+  setTimeout(() => {
+    success.value = "";
+  }, 3000);
+});
+
+const onSubmit = async (e) => {
+  const res = await login({
+    email: email.value,
+    password: password.value,
+  });
+
+  if (res.status !== 200) {
+    error.value = res.data.message;
+  } else {
+    error.value = "";
+    router.push("/dashboard");
+  }
+}
+</script>
+
 <template>
   <div
     class="h-screen flex flex-col justify-center"
     style="align-items: center"
   >
-    <div class="card w-96 bg-base-100 shadow-xl card-bordered">
+    <form action="" @submit.prevent="onSubmit" class="card w-96 bg-base-100 shadow-xl card-bordered">
       <div class="card-body">
         <div class="flex flex-row" style="align-items: center">
           <svg
@@ -22,20 +59,25 @@
           </svg>
           <h2 class="card-title pl-2">FindMyFriends</h2>
         </div>
+        <div v-if="success" class="text-success">
+          {{ success }}
+        </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Email</span>
           </label>
-          <input type="text" placeholder="email" class="input input-bordered" />
+          <input type="email" placeholder="email" required class="input input-bordered" v-model="email" />
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Password</span>
           </label>
           <input
-            type="text"
+            type="password"
             placeholder="password"
+            required
             class="input input-bordered"
+            v-model="password"
           />
           <label class="label">
             <a href="#" class="label-text-alt link link-hover"
@@ -43,26 +85,21 @@
             >
           </label>
         </div>
+        <div v-if="error" class="text-error">
+          {{ error }}
+        </div>
         <div class="form-control mt-6">
           <button class="btn btn-primary">Login</button>
         </div>
         <div class="flex flex-row" style="align-items: center">
         <p>New user at FindMyFriend ?</p>
-        <label class="label">
-            <NuxtLink to="/signUp">
-          <a href="#" class="label-text-alt link link-hover text-primary pa-0"
-            >Register here</a
-          >
-        </NuxtLink>
+        <label class="label">  
+          <NuxtLink to="/signUp" class="label-text-alt link link-hover text-primary pa-0">
+            Register here
+          </NuxtLink>
         </label>
     </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
-
-<script setup>
-definePageMeta({
-  layout: "index",
-});
-</script>
