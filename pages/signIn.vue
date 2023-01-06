@@ -51,7 +51,7 @@
         <label class="label">
             <NuxtLink to="/signUp">
           <a href="#" class="label-text-alt link link-hover text-primary pa-0"
-            >Sign Up here</a
+            >Register here</a
           >
         </NuxtLink>
         </label>

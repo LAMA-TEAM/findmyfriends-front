@@ -53,8 +53,18 @@
             />
           </div>
           <div class="form-control mt-6">
-            <button class="btn btn-primary">Login</button>
+            <button class="btn btn-primary">Register</button>
           </div>
+          <div class="flex flex-row" style="align-items: center">
+        <p>Already a user at FindMyFriend ?</p>
+        <label class="label">
+            <NuxtLink to="/signIn">
+          <a href="#" class="label-text-alt link link-hover text-primary pa-0"
+            >Login here</a
+          >
+        </NuxtLink>
+        </label>
+    </div>
         </div>
       </div>
     </div>

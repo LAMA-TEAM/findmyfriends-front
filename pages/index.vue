@@ -1,35 +1,27 @@
 <template>
-  <div class="h-screen flex flex-col justify-center bg-accent">
-    <div>
-      <h1 class="text-center text-xl text-white">Welcome to</h1>
-      <h1 class="text-4xl text-white text-center font-medium">
-        Find My Friends !
-      </h1>
-    </div>
-    <div class="mt-10 flex justify-center h-1/3 items-center gap-14 text-white">
-      <div class="w-1/12">
-        <GlobeEuropeAfricaIcon />
-        <div class="text-center text-2xl">Explore</div>
+  <div class="hero min-h-screen">
+    <div class="hero-content flex-col lg:flex-row-reverse px-44">
+      <img
+        src="~/assets/img/bloom-woman-and-man-clapped-their-hands.png"
+        class="max-w-sm "
+      />
+      <div>
+        <h1 class="text-5xl font-bold">Welcome to FindMyFriends !</h1>
+        <p class="py-6">
+          Where you can place tags on a map and share them with your contacts so
+          that it can indicate your position, give meeting points or share
+          places to visit with friends.
+        </p>
+        <div class="flex flex-column" style="align-items: center">
+          <NuxtLink to="/signIn">
+            <button class="btn btn-primary">Sign in</button>
+          </NuxtLink>
+          <span class="text-black text-center px-3">or</span>
+          <NuxtLink to="/signUp">
+            <button class="btn btn-secondary">Sign up</button>
+          </NuxtLink>
+        </div>
       </div>
-      <div class="w-1/12">
-        <MapPinIcon />
-        <div class="text-center text-2xl">Save</div>
-      </div>
-      <div class="w-1/12">
-        <UsersIcon />
-        <div class="text-center text-2xl">Share</div>
-      </div>
-    </div>
-    <div class="text-center text-white text-4xl">Locations</div>
-    <div class="flex justify-center my-20 gap-5 items-center">
-      <NuxtLink to="/signIn">
-        <button class="btn btn-info">Sign in</button>
-      </NuxtLink>
-
-      <span class="text-white text-center text-xl">or</span>
-      <NuxtLink to="/signUp">
-        <button class="btn btn-success">Sign up</button>
-      </NuxtLink>
     </div>
   </div>
 </template>
