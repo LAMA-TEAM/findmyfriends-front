@@ -88,6 +88,7 @@
       </svg>
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
+    <Map/>
     <div class="card lg:card-side bg-base-100 shadow-xl image-full " style="width: 980px; height: 696px;">
       <figure>
         <img src="https://placeimg.com/400/400/arch" alt="Album" />
