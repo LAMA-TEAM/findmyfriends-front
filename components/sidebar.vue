@@ -8,32 +8,32 @@
       </div>
     </div>
     <div class="flex flex-col gap-3">
-      <div class="tooltip tooltip-right tooltip-secondary" data-tip="Home">
+      <div class="tooltip tooltip-right tooltip-primary-focus" data-tip="Home">
         <NuxtLink to="/dashboard">
           <HomeIcon
-            :class="route.name === 'dashboard' ? 'bg-secondary' : 'bg-primary'"
-            class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer"
+            :class="route.name === 'dashboard' ? 'bg-primary-focus' : 'bg-primary'"
+            class="h-10 w-10 text-white rounded-md p-2 hover:bg-primary-focus hover:cursor-pointer"
           />
         </NuxtLink>
       </div>
       <div
-        class="tooltip tooltip-right tooltip-secondary"
+        class="tooltip tooltip-right tooltip-primary-focus"
         data-tip="Add marker"
       >
         <SquaresPlusIcon
           :class="
-            route.name === 'dashboard-new' ? 'bg-secondary' : 'bg-primary'
+            route.name === 'dashboard-new' ? 'bg-primary-focus' : 'bg-primary'
           "
-          class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer"
+          class="h-10 w-10 text-white rounded-md p-2 hover:bg-primary-focus hover:cursor-pointer"
         />
       </div>
-      <div class="tooltip tooltip-right tooltip-secondary" data-tip="Friends">
+      <div class="tooltip tooltip-right tooltip-primary-focus" data-tip="Friends">
         <NuxtLink to="/dashboard/friends">
           <UsersIcon
             :class="
-              route.name === 'dashboard-friends' ? 'bg-secondary' : 'bg-primary'
+              route.name === 'dashboard-friends' ? 'bg-primary-focus' : 'bg-primary'
             "
-            class="h-10 w-10 text-white rounded-md p-2 hover:bg-secondary hover:cursor-pointer"
+            class="h-10 w-10 text-white rounded-md p-2 hover:bg-primary-focus hover:cursor-pointer"
           />
         </NuxtLink>
       </div>
