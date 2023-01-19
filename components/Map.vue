@@ -3,23 +3,29 @@ import { ref } from "vue";
 
 const openedMarkerID = ref(null);
 const center = ref({ lat: 48.8773406, lng: 2.327774 });
-const markers = ref([
-  {
-    description: "Google France",
-    id: "1",
-    position: {
-      lat: 48.8773406,
-      lng: 2.327774,
-    },
+const newMarker = ref({
+  description: "",
+  position: {
+    lat: 0,
+    lng: 0,
   },
-]);
+});
+
+function placeMarker(e) {
+  newMarker.position = {
+    lat: e.latLng.lat(),
+    lng: e.latLng.lng()
+  }
+  console.log(newMarker.position)
+}
+
 </script>
 
 <template>
       <div class="mb-20">
         <GMapMap
           :center="center"
-          :zoom="15"
+          :zoom="7"
           :options="{
             zoomControl: true,
             mapTypeControl: false,
@@ -28,24 +34,14 @@ const markers = ref([
             rotateControl: false,
             fullscreenControl: true,
           }"
-          style="width: 500px; height: 300px; margin: auto"
+          ref="myMapRef"
+          style="width: 75vw; height: 850px; margin: auto"
+          @click="placeMarker"
         >
           <GMapMarker
-            :key="index"
-            v-for="(marker, index) in markers"
-            :position="marker.position"
-            :clickable="true"
-            :draggable="true"
-            @click="openMarker(marker.id)"
-          >
-            <GMapInfoWindow
-              :closeclick="true"
-              @closeclick="openMarker(null)"
-              :opened="openedMarkerID === marker.id"
-            >
-              <div>{{ marker.description }}</div>
-            </GMapInfoWindow>
-          </GMapMarker>
+            ref="newMarker"
+            :position="newMarker.position"
+          />
         </GMapMap>
       </div>
 </template>

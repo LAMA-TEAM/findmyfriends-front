@@ -70,7 +70,7 @@
       </div>
     </div>
   </div>
-  <div class="flex-col items-start lg:flex md:flex py-6 px-5 gap-5">
+  <div class="flex-col items-start lg:flex md:flex py-6 px-5 gap-5 w-full">
     <div class="flex flex-row gap-3" style="align-items: center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,14 +89,6 @@
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
     <Map />
-    <!-- <div class="card lg:card-side bg-base-100 shadow-xl image-full " style="width: 980px; height: 696px;">
-      <figure>
-        <img src="https://placeimg.com/400/400/arch" alt="Album" />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">c'est la map</h2>
-      </div>
-    </div> -->
   </div>
 </template>
 
