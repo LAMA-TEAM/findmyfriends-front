@@ -15,8 +15,8 @@
         <div class="stat-desc">Drag the marker where you want on the map</div>
         <div class="my-2">Lat : {{ newMarkerPos.lat.toFixed(4) }} | Lng : {{ newMarkerPos.lng.toFixed(4) }}</div>
         <div>
-          <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text"/>
-          <button class="btn btn-primary btn-wide">Add new marker</button>
+          <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text" v-model="label"/>
+          <button class="btn btn-primary btn-wide" @click="handleCreateNewMarker">Add new marker</button>
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@
         style="width: 290px; flex-direction: column; align-items: flex-start"
       >
         <div class="title font-bold">Friends</div>
+        <template v-if="friends.length !== 0">
         <div class="flex flex-row pt-3" style="align-items: center" v-for="friend of friends" :key="friend._id">
           <div class="avatar placeholder pr-3">
             <div
@@ -36,6 +37,10 @@
           </div>
           <div class="stat-desc">{{ friend.username }}</div>
         </div>
+        </template>
+        <template v-else>
+          <div class="stat-desc">You don't have any friends yet</div>
+        </template>
       </div>
     </div>
   </div>
@@ -57,21 +62,28 @@
       </svg>
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
-    <Map @marker-clicked="handleMarkerClicked" />
+    <Map @marker-clicked="handleMarkerClicked" :markers="waypoints" />
   </div>
 </template>
 
 <script setup>
-import { getFriends as getFriendsApi } from "~/lib/api";
+import { getFriends as getFriendsApi, createWaypoint, getWaypoints as getWaypointsApi } from "~/lib/api";
 
 definePageMeta({
   layout: "dashboard",
 });
 
 const friends = ref([]);
+const waypoints = ref([]);
+const label = ref("");
+const newMarkerPos = ref({
+  lat: 48.8773406,
+  lng: 2.327774
+});
 
 onMounted(() => {
   getFriends();
+  getWaypoints();
 });
 
 const getFriends = async () => {
@@ -79,20 +91,34 @@ const getFriends = async () => {
   if (!res) return;
 
   friends.value = res.data;
+};
 
-  console.log(friends.value);
+const getWaypoints = async () => {
+  const res = await getWaypointsApi();
+  if (!res) return;
+
+  waypoints.value = res.data;
+
+  console.log(waypoints.value);
 };
 
 const twoLetters = (str) => {
   return str.substring(0, 2);
 };
-const newMarkerPos = ref({
-  lat: 48.8773406,
-  lng: 2.327774
-})
 
 const handleMarkerClicked = (marker) => {
-  console.log("from index.vue", marker);
   newMarkerPos.value = marker
 };
+
+const handleCreateNewMarker = async () => {
+  const res = await createWaypoint({
+    title: label.value,
+    latitude: newMarkerPos.value.lat,
+    longitude: newMarkerPos.value.lng
+  });
+  if (!res) return;
+
+  label.value = "";
+  getWaypoints();
+}
 </script>
