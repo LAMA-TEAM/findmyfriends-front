@@ -88,7 +88,7 @@
       </svg>
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
-    <Map />
+    <Map @marker-clicked="handleMarkerClicked" />
   </div>
 </template>
 
@@ -96,4 +96,8 @@
 definePageMeta({
   layout: "dashboard",
 });
+
+const handleMarkerClicked = (marker) => {
+  console.log("from index.vue", marker);
+};
 </script>
