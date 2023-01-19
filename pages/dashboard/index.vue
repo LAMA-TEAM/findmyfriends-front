@@ -57,15 +57,15 @@
         style="width: 290px; flex-direction: column; align-items: flex-start"
       >
         <div class="title font-bold">Friends</div>
-        <div class="flex flex-row pt-3" style="align-items: center">
+        <div class="flex flex-row pt-3" style="align-items: center" v-for="friend of friends" :key="friend._id">
           <div class="avatar placeholder pr-3">
             <div
               class="bg-neutral-focus text-neutral-content rounded-full w-10"
             >
-              <span>US</span>
+              <span class="uppercase">{{ twoLetters(friend.username) }}</span>
             </div>
           </div>
-          <div class="stat-desc">Friend 1</div>
+          <div class="stat-desc">{{ friend.username }}</div>
         </div>
       </div>
     </div>
@@ -93,9 +93,30 @@
 </template>
 
 <script setup>
+import { getFriends as getFriendsApi } from "~/lib/api";
+
 definePageMeta({
   layout: "dashboard",
 });
+
+const friends = ref([]);
+
+onMounted(() => {
+  getFriends();
+});
+
+const getFriends = async () => {
+  const res = await getFriendsApi();
+  if (!res) return;
+
+  friends.value = res.data;
+
+  console.log(friends.value);
+};
+
+const twoLetters = (str) => {
+  return str.substring(0, 2);
+};
 
 const handleMarkerClicked = (marker) => {
   console.log("from index.vue", marker);
