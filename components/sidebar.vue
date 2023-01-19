@@ -71,7 +71,7 @@
         >
           <li><a>Profile</a></li>
           <li><a>Friends</a></li>
-          <li><a class="text-error">Sign out</a></li>
+          <li><a class="text-error" @click="handleSignOut">Sign out</a></li>
         </ul>
       </div>
     </div>
@@ -83,4 +83,9 @@ import { HomeIcon, SquaresPlusIcon, UsersIcon } from "@heroicons/vue/24/solid";
 
 const route = useRoute();
 const routes = ["dashboard", "dashboard-friends", "dashboard-new"];
+
+const handleSignOut = () => {
+  localStorage.removeItem("token");
+  navigateTo("/signin");
+};
 </script>

@@ -13,11 +13,11 @@
           places to visit with friends.
         </p>
         <div class="flex flex-column" style="align-items: center">
-          <NuxtLink to="/signIn">
+          <NuxtLink to="/signin">
             <button class="btn btn-primary">Sign in</button>
           </NuxtLink>
           <span class="text-black text-center px-3">or</span>
-          <NuxtLink to="/signUp">
+          <NuxtLink to="/signup">
             <button class="btn btn-secondary">Sign up</button>
           </NuxtLink>
         </div>

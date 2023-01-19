@@ -23,7 +23,7 @@ const onSubmit = async (e) => {
     error.value = res.data.message;
   } else {
     error.value = '';
-    router.push('/signIn', { query: { success: 'You have successfully registered!' } });
+    router.push('/signin', { query: { success: 'You have successfully registered!' } });
   }
 }
 </script>

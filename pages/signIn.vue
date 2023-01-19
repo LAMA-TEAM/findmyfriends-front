@@ -94,7 +94,7 @@ const onSubmit = async (e) => {
         <div class="flex flex-row" style="align-items: center">
         <p>New user at FindMyFriend ?</p>
         <label class="label">  
-          <NuxtLink to="/signUp" class="label-text-alt link link-hover text-primary pa-0">
+          <NuxtLink to="/signup" class="label-text-alt link link-hover text-primary pa-0">
             Register here
           </NuxtLink>
         </label>
