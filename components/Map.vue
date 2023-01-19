@@ -58,7 +58,7 @@ const handleDragEnd = (e) => {
             style="color: #111"
             :key="index"
             v-for="(m, index) in userMarkers"
-            :icon="'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=U&psize=11&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'"
+            :icon="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"
             :position="m.position"
           />
         </GMapMap>
