@@ -1,7 +1,12 @@
 <script setup>
 const emits = defineEmits(["marker-clicked"]);
 
-const openedMarkerID = ref(null);
+const openedMarkerLabel = ref(null);
+
+const openMarker = (label) => {
+  openedMarkerLabel.value = label
+} 
+
 const center = ref({ lat: 48.8773406, lng: 2.327774 });
 
 const props = defineProps({
@@ -18,16 +23,6 @@ const newMarker = ref({
     lng: 2.327774,
   },
 });
-
-const userMarkers = ref([
-  {
-    label: "",
-    position: {
-      lat: 48.0028,
-      lng: 0.1964
-    }
-  }
-])
 
 const handleDragEnd = (e) => {
   newMarker.position = {
@@ -60,7 +55,7 @@ const handleDragEnd = (e) => {
             :draggable="true"
             ref="newMarker"
             :position="newMarker.position"
-            @dragend="handleDragEnd"
+            @dragend="handleDragEnd" 
           />
           <GMapMarker
             style="color: #111"
@@ -68,7 +63,16 @@ const handleDragEnd = (e) => {
             v-for="(m, index) in markers"
             :icon="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"
             :position="{ lat: m.latitude, lng: m.longitude }"
-          />
+            @click="openMarker(m.title)"
+          >
+            <GMapInfoWindow
+              :closeclick="true"
+              @closeclick="openMarker(null)"
+              :opened="openedMarkerLabel === m.title"
+            >
+              <div>Label : {{ m.title }}</div>
+            </GMapInfoWindow>
+        </GMapMarker>
         </GMapMap>
       </div>
 </template>
