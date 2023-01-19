@@ -13,7 +13,7 @@
         <img src="~/assets/img/bermuda-751.png" style="width: 170px" />
         <div class="stat-title">Add a pin</div>
         <div class="stat-desc">Drag the marker where you want on the map</div>
-        <div class="my-2">Lat : {{ newMarkerPos.lat.toFixed(4) }} | Lng : {{ newMarkerPos.lng.toFixed(4) }}</div>
+        <div class="my-2">Lat : {{ newMarker.position.lat.toFixed(4) }} | Lng : {{ newMarker.position.lng.toFixed(4) }}</div>
         <div>
           <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text" v-model="label"/>
           <button class="btn btn-primary btn-wide" @click="handleCreateNewMarker">Add new marker</button>
@@ -105,6 +105,10 @@ const getWaypoints = async () => {
 const twoLetters = (str) => {
   return str.substring(0, 2);
 };
+
+const addNewMarker = (e) => {
+  console.log(newMarker.value)
+}
 
 const handleMarkerClicked = (marker) => {
   newMarkerPos.value = marker

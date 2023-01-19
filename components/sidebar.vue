@@ -4,7 +4,7 @@
   >
     <div class="avatar placeholder m-1">
       <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
-        <span>US</span>
+        <span>{{ userInfos?.username.slice(0,2).toUpperCase() }}</span>
       </div>
     </div>
     <div class="flex flex-col gap-3">
@@ -15,17 +15,6 @@
             class="h-10 w-10 text-white rounded-md p-2 hover:bg-primary-focus hover:cursor-pointer"
           />
         </NuxtLink>
-      </div>
-      <div
-        class="tooltip tooltip-right tooltip-primary-focus"
-        data-tip="Add marker"
-      >
-        <SquaresPlusIcon
-          :class="
-            route.name === 'dashboard-new' ? 'bg-primary-focus' : 'bg-primary'
-          "
-          class="h-10 w-10 text-white rounded-md p-2 hover:bg-primary-focus hover:cursor-pointer"
-        />
       </div>
       <div class="tooltip tooltip-right tooltip-primary-focus" data-tip="Friends">
         <NuxtLink to="/dashboard/friends">
@@ -80,12 +69,27 @@
 
 <script setup>
 import { HomeIcon, SquaresPlusIcon, UsersIcon } from "@heroicons/vue/24/solid";
+import { getMe as getMeApi } from "~/lib/api";
 
 const route = useRoute();
 const routes = ["dashboard", "dashboard-friends", "dashboard-new"];
+const userInfos = ref();
+
+const getUserInfos = async () => {
+  const token = localStorage.getItem('token');
+  const res = await getMeApi(token)
+  if (!res) return;
+
+  userInfos.value = res;
+  console.log(userInfos.value)
+}
 
 const handleSignOut = () => {
   localStorage.removeItem("token");
   navigateTo("/signin");
 };
+
+onMounted(() => {
+  getUserInfos();
+})
 </script>
