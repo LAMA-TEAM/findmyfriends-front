@@ -13,10 +13,10 @@
         <img src="~/assets/img/bermuda-751.png" style="width: 170px" />
         <div class="stat-title">Add a pin</div>
         <div class="stat-desc">Drag the marker where you want on the map</div>
-        <div class="my-2">Lat : {{ newMarkerPos.lat.toFixed(4) }} | Lng : {{ newMarkerPos.lng.toFixed(4) }}</div>
+        <div class="my-2">Lat : {{ newMarker.position.lat.toFixed(4) }} | Lng : {{ newMarker.position.lng.toFixed(4) }}</div>
         <div>
-          <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text"/>
-          <button class="btn btn-primary btn-wide">Add new marker</button>
+          <input v-model="newMarker.label" class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text"/>
+          <button class="btn btn-primary btn-wide" @click="addNewMarker">Add new marker</button>
         </div>
       </div>
     </div>
@@ -86,13 +86,21 @@ const getFriends = async () => {
 const twoLetters = (str) => {
   return str.substring(0, 2);
 };
-const newMarkerPos = ref({
-  lat: 48.8773406,
-  lng: 2.327774
+const newMarker = ref({
+  label: "",
+  position: {
+    lat: 48.8773406,
+    lng: 2.327774
+  }
+  
 })
+
+const addNewMarker = (e) => {
+  console.log(newMarker.value)
+}
 
 const handleMarkerClicked = (marker) => {
   console.log("from index.vue", marker);
-  newMarkerPos.value = marker
+  newMarker.value = marker
 };
 </script>

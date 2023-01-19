@@ -27,7 +27,7 @@ const handleDragEnd = (e) => {
     lng: e.latLng.lng()
   }
 
-  emits("marker-clicked", newMarker.position);
+  emits("marker-clicked", newMarker);
 }
 
 </script>
