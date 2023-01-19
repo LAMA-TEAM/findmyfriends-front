@@ -4,20 +4,22 @@ const emits = defineEmits(["marker-clicked"]);
 const openedMarkerID = ref(null);
 const center = ref({ lat: 48.8773406, lng: 2.327774 });
 const newMarker = ref({
-  description: "",
+  label: "",
   position: {
     lat: 48.8773406,
     lng: 2.327774,
   },
 });
 
-function placeMarker(e) {
-  newMarker.position = {
-    lat: e.latLng.lat(),
-    lng: e.latLng.lng()
+const userMarkers = ref([
+  {
+    label: "",
+    position: {
+      lat: 48.0028,
+      lng: 0.1964
+    }
   }
-  console.log(newMarker.position)
-}
+])
 
 const handleDragEnd = (e) => {
   newMarker.position = {
@@ -45,13 +47,19 @@ const handleDragEnd = (e) => {
           }"
           ref="myMapRef"
           style="width: 75vw; height: 850px; margin: auto"
-          @click="placeMarker"
         >
           <GMapMarker
             :draggable="true"
             ref="newMarker"
             :position="newMarker.position"
             @dragend="handleDragEnd"
+          />
+          <GMapMarker
+            style="color: #111"
+            :key="index"
+            v-for="(m, index) in userMarkers"
+            :icon="'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=U&psize=11&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'"
+            :position="m.position"
           />
         </GMapMap>
       </div>

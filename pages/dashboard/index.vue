@@ -12,42 +12,11 @@
       >
         <img src="~/assets/img/bermuda-751.png" style="width: 170px" />
         <div class="stat-title">Add a pin</div>
-        <div class="stat-desc">Add your position or fix a meeting point</div>
-        <label for="my-modal"
-          ><button class="btn btn-secondary btn-xs btn-square mt-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="#fff"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 6v12m6-6H6"
-              />
-            </svg></button
-        ></label>
-        <input type="checkbox" id="my-modal" class="modal-toggle" />
-        <div class="modal">
-          <div class="modal-box">
-            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-
-            <h3 class="font-bold text-lg">
-              Add
-            </h3>
-            <p class="py-4">
-              share localisation
-            </p>
-            <p class="py-4">
-              add a meeting point
-            </p>
-            <div class="modal-action">
-              <label for="my-modal" class="btn">Share</label>
-            </div>
-          </div>
+        <div class="stat-desc">Drag the marker where you want on the map</div>
+        <div class="my-2">Lat : {{ newMarkerPos.lat.toFixed(4) }} | Lng : {{ newMarkerPos.lng.toFixed(4) }}</div>
+        <div>
+          <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text"/>
+          <button class="btn btn-primary btn-wide">Add new marker</button>
         </div>
       </div>
     </div>
@@ -97,7 +66,13 @@ definePageMeta({
   layout: "dashboard",
 });
 
+const newMarkerPos = ref({
+  lat: 48.8773406,
+  lng: 2.327774
+})
+
 const handleMarkerClicked = (marker) => {
   console.log("from index.vue", marker);
+  newMarkerPos.value = marker
 };
 </script>
