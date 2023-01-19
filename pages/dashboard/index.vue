@@ -88,20 +88,19 @@
       </svg>
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
-    <div class="card lg:card-side bg-base-100 shadow-xl image-full " style="width: 980px; height: 696px;">
+    <Map />
+    <!-- <div class="card lg:card-side bg-base-100 shadow-xl image-full " style="width: 980px; height: 696px;">
       <figure>
         <img src="https://placeimg.com/400/400/arch" alt="Album" />
       </figure>
       <div class="card-body">
         <h2 class="card-title">c'est la map</h2>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
-import { protectedRoute } from "~/lib/middleware";
-
 definePageMeta({
   layout: "dashboard",
 });
