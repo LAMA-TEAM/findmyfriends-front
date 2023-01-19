@@ -12,42 +12,11 @@
       >
         <img src="~/assets/img/bermuda-751.png" style="width: 170px" />
         <div class="stat-title">Add a pin</div>
-        <div class="stat-desc">Add your position or fix a meeting point</div>
-        <label for="my-modal"
-          ><button class="btn btn-secondary btn-xs btn-square mt-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="#fff"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 6v12m6-6H6"
-              />
-            </svg></button
-        ></label>
-        <input type="checkbox" id="my-modal" class="modal-toggle" />
-        <div class="modal">
-          <div class="modal-box">
-            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-
-            <h3 class="font-bold text-lg">
-              Add
-            </h3>
-            <p class="py-4">
-              share localisation
-            </p>
-            <p class="py-4">
-              add a meeting point
-            </p>
-            <div class="modal-action">
-              <label for="my-modal" class="btn">Share</label>
-            </div>
-          </div>
+        <div class="stat-desc">Drag the marker where you want on the map</div>
+        <div class="my-2">Lat : {{ newMarker.position.lat.toFixed(4) }} | Lng : {{ newMarker.position.lng.toFixed(4) }}</div>
+        <div>
+          <input v-model="newMarker.label" class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text"/>
+          <button class="btn btn-primary btn-wide" @click="addNewMarker">Add new marker</button>
         </div>
       </div>
     </div>
@@ -57,20 +26,20 @@
         style="width: 290px; flex-direction: column; align-items: flex-start"
       >
         <div class="title font-bold">Friends</div>
-        <div class="flex flex-row pt-3" style="align-items: center">
+        <div class="flex flex-row pt-3" style="align-items: center" v-for="friend of friends" :key="friend._id">
           <div class="avatar placeholder pr-3">
             <div
               class="bg-neutral-focus text-neutral-content rounded-full w-10"
             >
-              <span>US</span>
+              <span class="uppercase">{{ twoLetters(friend.username) }}</span>
             </div>
           </div>
-          <div class="stat-desc">Friend 1</div>
+          <div class="stat-desc">{{ friend.username }}</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="flex-col items-start lg:flex md:flex py-6 px-5 gap-5">
+  <div class="flex-col items-start lg:flex md:flex py-6 px-5 gap-5 w-full">
     <div class="flex flex-row gap-3" style="align-items: center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -88,20 +57,50 @@
       </svg>
       <h1 class="text-2xl font-bold">Map</h1>
     </div>
-    <Map />
-    <!-- <div class="card lg:card-side bg-base-100 shadow-xl image-full " style="width: 980px; height: 696px;">
-      <figure>
-        <img src="https://placeimg.com/400/400/arch" alt="Album" />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">c'est la map</h2>
-      </div>
-    </div> -->
+    <Map @marker-clicked="handleMarkerClicked" />
   </div>
 </template>
 
 <script setup>
+import { getFriends as getFriendsApi } from "~/lib/api";
+
 definePageMeta({
   layout: "dashboard",
 });
+
+const friends = ref([]);
+
+onMounted(() => {
+  getFriends();
+});
+
+const getFriends = async () => {
+  const res = await getFriendsApi();
+  if (!res) return;
+
+  friends.value = res.data;
+
+  console.log(friends.value);
+};
+
+const twoLetters = (str) => {
+  return str.substring(0, 2);
+};
+const newMarker = ref({
+  label: "",
+  position: {
+    lat: 48.8773406,
+    lng: 2.327774
+  }
+  
+})
+
+const addNewMarker = (e) => {
+  console.log(newMarker.value)
+}
+
+const handleMarkerClicked = (marker) => {
+  console.log("from index.vue", marker);
+  newMarker.value = marker
+};
 </script>

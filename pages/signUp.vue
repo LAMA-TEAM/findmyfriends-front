@@ -7,6 +7,7 @@ const router = useRouter();
 
 const firstName = ref("");
 const lastName = ref("");
+const username = ref("");
 const email = ref("");
 const password = ref("");
 
@@ -14,7 +15,9 @@ const error = ref('');
 
 const onSubmit = async (e) => {
   const res = await register({
-    username: firstName.value + " " + lastName.value,
+    firstName: firstName.value,
+    lastName: lastName.value,
+    username: username.value,
     email: email.value,
     password: password.value,
   });
@@ -23,7 +26,7 @@ const onSubmit = async (e) => {
     error.value = res.data.message;
   } else {
     error.value = '';
-    router.push('/signIn', { query: { success: 'You have successfully registered!' } });
+    router.push('/signin', { query: { success: 'You have successfully registered!' } });
   }
 }
 </script>
@@ -77,6 +80,18 @@ const onSubmit = async (e) => {
               v-model="lastName"
             />
           </div>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Username</span>
+          </label>
+          <input
+            type="text"
+            placeholder="username"
+            required
+            class="input input-bordered"
+            v-model="username"
+          />
         </div>
         <div class="form-control">
           <label class="label">
