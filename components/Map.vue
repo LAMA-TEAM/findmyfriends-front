@@ -36,7 +36,7 @@ const handleDragEnd = (e) => {
 </script>
 
 <template>
-      <div class="mb-20">
+      <div class="w-full h-full">
         <GMapMap
           :center="center"
           :zoom="7"
@@ -49,7 +49,7 @@ const handleDragEnd = (e) => {
             fullscreenControl: true,
           }"
           ref="myMapRef"
-          style="width: 75vw; height: 850px; margin: auto"
+          style="width: 100%; height: 100%; margin: auto; border-radius: 6px;"
         >
           <GMapMarker
             :draggable="true"
@@ -76,3 +76,10 @@ const handleDragEnd = (e) => {
         </GMapMap>
       </div>
 </template>
+
+<style>
+.vue-map-container {
+  width: 100%;
+  height: 100%;
+}
+</style>
