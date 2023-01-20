@@ -60,7 +60,7 @@ const handleDragEnd = (e) => {
           <GMapMarker
             style="color: #111"
             :key="index"
-            v-for="(m, index) in markers"
+            v-for="(m, index) in markers.waypoints"
             :icon="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"
             :position="{ lat: m.latitude, lng: m.longitude }"
             @click="openMarker(m.title)"
@@ -72,7 +72,14 @@ const handleDragEnd = (e) => {
             >
               <div>Label : {{ m.title }}</div>
             </GMapInfoWindow>
-        </GMapMarker>
+          </GMapMarker>
+          <GMapMarker style="color: #111" :key="index" v-for="(m, index) in markers.friendsWaypoints"
+            :icon="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'" :position="{ lat: m.latitude, lng: m.longitude }"
+            @click="openMarker(m.title)">
+            <GMapInfoWindow :closeclick="true" @closeclick="openMarker(null)" :opened="openedMarkerLabel === m.title">
+              <div>Label : {{ m.title }}</div>
+            </GMapInfoWindow>
+          </GMapMarker>
         </GMapMap>
       </div>
 </template>

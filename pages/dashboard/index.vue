@@ -5,6 +5,20 @@
   >
     <h1 class="text-2xl font-bold">Nice to see you again USER !</h1>
 
+    <div class="shadow card-bordered p-4 w-full rounded-2xl">
+      <div class="text-xl font-bold">Legend</div>
+      <div class="mt-4 flex flex-col gap-2">
+        <div class="flex justify-between">
+          <div>User waypoints</div>
+          <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"/>
+        </div>
+        <div class="flex justify-between">
+          <div>Friends waypoints</div>
+          <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" />
+        </div>
+      </div>
+    </div>
+
     <div class="stats shadow card-bordered">
       <div
         class="stat flex flex-column"
