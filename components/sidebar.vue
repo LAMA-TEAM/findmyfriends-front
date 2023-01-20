@@ -81,7 +81,6 @@ const getUserInfos = async () => {
   if (!res) return;
 
   userInfos.value = res;
-  console.log(userInfos.value)
 }
 
 const handleSignOut = () => {

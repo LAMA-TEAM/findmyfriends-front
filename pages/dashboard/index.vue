@@ -98,8 +98,6 @@ const getWaypoints = async () => {
   if (!res) return;
 
   waypoints.value = res.data;
-
-  console.log(waypoints.value);
 };
 
 const twoLetters = (str) => {

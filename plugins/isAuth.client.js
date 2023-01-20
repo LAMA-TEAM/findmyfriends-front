@@ -8,13 +8,11 @@ export default defineNuxtPlugin(() => {
             const token = localStorage.getItem('token');
 
             if (!token) {
-                console.log('No token found');
                 return navigateTo('/signin');
             }
 
             const isAuth = await getMe(token);
             if (!isAuth) {
-                console.log('Token is not valid');
                 return navigateTo('/signin');
             }
         }
@@ -25,7 +23,6 @@ export default defineNuxtPlugin(() => {
             if (token) {
                 const isAuth = await getMe(token);
                 if (isAuth) {
-                    console.log('Token is valid');
                     return navigateTo('/dashboard');
                 }
             }

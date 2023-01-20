@@ -1,3 +1,59 @@
+
+<script setup>
+import {
+  getFriends as getFriendsApi,
+  getInvitations as getInvitationsApi,
+  createInvitation as createInvitationApi,
+  getInvitationsSended as getInvitationsSendedApi,
+  acceptInvitation as acceptInvitationApi,
+  } from "~/lib/api";
+
+definePageMeta({
+  layout: "dashboard",
+});
+
+const invitations = ref([]);
+const friends = ref([]);
+const username = ref("");
+const invitationsSended = ref([]);
+
+onMounted(() => {
+  getFriends();
+  getInvitationsSended();
+  getInvitations();
+});
+
+const getFriends = async () => {
+  const { data } = await getFriendsApi();
+  friends.value = data;
+};
+
+const getInvitations = async () => {
+  const { data } = await getInvitationsApi();
+  invitations.value = data;
+};
+
+const createInvitation = async () => {
+  console.log(username.value);
+  await createInvitationApi({
+    username: username.value,
+  });
+  username.value = "";
+  getInvitationsSended();
+};
+
+const getInvitationsSended = async () => {
+  const { data } = await getInvitationsSendedApi();
+  invitationsSended.value = data;
+};
+
+const acceptInvitation = async (invitationId) => {
+  await acceptInvitationApi(invitationId);
+  await getInvitations();
+  await getFriends();
+};
+</script>
+
 <template>
   <div class="items-start pl-5 pr-5 py-6 gap-5 lg:flex md:flex flex-col">
     <h1 class="text-2xl font-bold">Friends Board</h1>
@@ -10,9 +66,12 @@
             class="menu menu-compact bg-base-100 w-56 p-2 rounded-box"
             style="background-color: #fff0e0"
           >
-            <li><a>Aya</a></li>
-            <li><a>Maxime</a></li>
-            <li><a>Ismael</a></li>
+            <template v-if="friends.length === 0">
+              <li><a>No friends online</a></li>
+            </template>
+            <template v-else>
+            <li v-for="friend, index of friends" :key="index"><a>{{ friend.username }}</a></li>
+            </template>
           </ul>
         </div>
       </div>
@@ -27,13 +86,15 @@
             class="menu menu-compact bg-base-100 w-56 p-2 rounded-box"
             style="background-color: #e3f7ee"
           >
-            <li>
+            <template v-if="invitations.length !== 0">
+            <li v-for="invitation, index of invitations" :key="index">
               <a style="display: flex; justify-content: space-between"
-                >Maxime
+                >{{ invitation.from.username }}
                 <div style="display: flex">
                   <button
                     class="btn btn-circle btn-sm"
                     style="background-color: #19cb8e; border-color: #19cb8e"
+                    @click="acceptInvitation(invitation._id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +136,10 @@
                   </button></div
               ></a>
             </li>
+            </template>
+            <template v-else>
+              <li><a>No pending invitations</a></li>
+            </template>
           </ul>
           <div class="card-actions justify-end">
             <label for="my-modal" class="btn btn-ghost" style="color: #19cb8e">
@@ -105,11 +170,11 @@
                 <p class="py-4">
                   Enter username
                 </p>
-                <input type="text" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" />
+                <input type="text" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" v-model="username" />
 
                 <div class="modal-action">
                   <label for="my-modal" class="btn">Cancel</label>
-                  <label for="my-modal" class="btn" style="background-color: #DFA82F; border-color: #DFA82F">Add</label>
+                  <label for="my-modal" class="btn" style="background-color: #DFA82F; border-color: #DFA82F" @click="createInvitation">Add</label>
                 </div>
               </div>
             </div>
@@ -117,11 +182,31 @@
         </div>
       </div>
     </div>
+    <div class="flex">
+      <!-- Card Invitation sended -->
+      <div
+        class="card w-80 card-list"
+        style="background-color: #8cb8ff; margin-left: 10px"
+      >
+        <div class="card-body">
+          <h2 class="card-title" style="color: #1770ff">Invitations sended</h2>
+          <ul
+            class="menu menu-compact bg-base-100 w-56 p-2 rounded-box"
+            style="background-color: #8cb8ff"
+          >
+            <template v-if="invitationsSended.length !== 0">
+            <li v-for="invitation, index of invitationsSended" :key="index">
+              <a style="display: flex; justify-content: space-between"
+                >{{ invitation.to.username }}
+              </a>
+            </li>
+            </template>
+            <template v-else>
+              <li><a>You didn't send any invitation</a></li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
-<script setup>
-definePageMeta({
-  layout: "dashboard",
-});
-</script>
