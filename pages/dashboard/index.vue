@@ -13,6 +13,9 @@
         <img src="~/assets/img/bermuda-751.png" style="width: 170px" />
         <div class="stat-title">Add a pin</div>
         <div class="stat-desc">Drag the marker where you want on the map</div>
+        <!-- Weather stats -->
+        <!-- <p class="text-2xl font-bold">{{ weather.main.temp }}°C</p> -->
+        <p class="text-lg font-bold">{{ weather.weather }} ({{ weather.temperature }}°C)</p>
         <div class="my-2">Lat : {{ newMarkerPos.lat.toFixed(4) }} | Lng : {{ newMarkerPos.lng.toFixed(4) }}</div>
         <div>
           <input class="my-2 input input-bordered input-accent w-full max-w-xs" placeholder="Marker label" type="text" v-model="label"/>
@@ -76,6 +79,7 @@ definePageMeta({
 const friends = ref([]);
 const waypoints = ref([]);
 const label = ref("");
+const weather = ref({});
 const newMarkerPos = ref({
   lat: 48.8773406,
   lng: 2.327774
@@ -85,6 +89,92 @@ onMounted(() => {
   getFriends();
   getWaypoints();
 });
+
+// Computed getWeather
+const getWeather = async () => {
+  if (!newMarkerPos.value.lat || !newMarkerPos.value.lng) return;
+
+  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${newMarkerPos.value.lat}&longitude=${newMarkerPos.value.lng}&hourly=temperature_2m&hourly=weathercode`);
+  if (!res) return;
+
+  const data = await res.json();
+
+  const hourly = data.hourly.time;
+  const index = hourly.findIndex((hour) => {
+    const date = new Date(hour);
+    const now = new Date();
+    return date.getHours() === now.getHours();
+  });
+
+  const temperature = data.hourly.temperature_2m[index];
+  const weathercode = data.hourly.weathercode[index];
+  let weatherLabel = "";
+
+  // WMO (WWO) weather codes
+  switch (weathercode) {
+    case 0:
+      weatherLabel = `Clear sky`;
+      break;
+    case 1:
+    case 2:
+    case 3:
+      weatherLabel = `Partly cloudy`;
+      break;
+    case 45:
+    case 48:
+      weatherLabel = `Fog`;
+      break;
+    case 51:
+    case 53:
+    case 55:
+      weatherLabel = `Drizzle`;
+      break;
+    case 56:
+    case 57:
+      weatherLabel = `Freezing Drizzle`;
+      break;
+    case 61:
+    case 63:
+    case 65:
+      weatherLabel = `Rain`;
+      break;
+    case 66:
+    case 67:
+      weatherLabel = `Freezing Rain`;
+      break;
+    case 71:
+    case 73:
+    case 75:
+      weatherLabel = `Snow Fall`;
+      break;
+    case 77: 
+      weatherLabel = `Snow grains`;
+      break;
+    case 80:
+    case 81:
+    case 82:
+      weatherLabel = `Rain Showers`;
+      break;
+    case 85:
+    case 86:
+      weatherLabel = `Snow Showers`;
+      break;
+    case 95:
+      weatherLabel = `Thunderstorm`;
+      break;
+    case 96:
+    case 99:
+      weatherLabel = `Thunderstorm with Hail`;
+      break;
+    default:
+      weatherLabel = `Unknown`;
+  }
+
+  weather.value = {
+    temperature,
+    weather: weatherLabel
+  };
+};
 
 const getFriends = async () => {
   const res = await getFriendsApi();
@@ -106,6 +196,7 @@ const twoLetters = (str) => {
 
 const handleMarkerClicked = (marker) => {
   newMarkerPos.value = marker.position;
+  getWeather();
 };
 
 const handleCreateNewMarker = async () => {

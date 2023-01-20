@@ -34,7 +34,6 @@ const getInvitations = async () => {
 };
 
 const createInvitation = async () => {
-  console.log(username.value);
   await createInvitationApi({
     username: username.value,
   });

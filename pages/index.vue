@@ -27,12 +27,6 @@
 </template>
 
 <script setup>
-import {
-  MapPinIcon,
-  GlobeEuropeAfricaIcon,
-  UsersIcon,
-} from "@heroicons/vue/24/solid";
-
 const route = useRoute();
 const routes = ["signIn", "signUp"];
 </script>
